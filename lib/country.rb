@@ -12,7 +12,9 @@ class Country
         @@all
     end
 
-   def self.find(name)
-    @@all.select { |n| n == name}
-   end 
+   def self.find(user_input)
+    @@all.detect do |n|
+    n.name.downcase == user_input
+    end 
+    end
 end 

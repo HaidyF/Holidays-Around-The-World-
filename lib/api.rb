@@ -1,27 +1,26 @@
+#handles API request
 class API 
 
-    def self.available_countries(country_name)
-       url = "https://date.nager.at/Api/v2/AvailableCountries"
+    def self.available_countries
+        url = "https://date.nager.at/Api/v2/AvailableCountries"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         countries = JSON.parse(response)
-        #iterate - coutries.each do to create new country
-        binding.pry
-        Country.all.detect do |n| n.name == country_name
-        output = countryCode
-        end 
-      
-         
+        countries.each do |c|
+        
+            a = Country.new(countryCode: c["key"], name: c["value"])
+        end
+    
     end 
-
-    def self.get_holiday(countryCode) 
-        url= "https://date.nager.at/Api/v2/NextPublicHolidays/#{countryCode}"
+    def self.get_holiday(country) 
+        url= "https://date.nager.at/Api/v2/NextPublicHolidays/#{country.countryCode}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
-        holiday = JSON.parse(response)[0]
-        output-name = holiday["name"]
-        output-date = holiday["date"]
-        puts (output-name) + " " + (output-date)
+        holidays = JSON.parse(response)
+        holidays.each_with_index do |h, i|
+            b = Holiday.new(date: h["date"], localName: h["localName"], name: h["name"], countryCode: h["countryCode"], fixed: h["fixed"], global: h["global"], counties: h["counties"], launchYear: h["launchYear"], type: h["types"])
+        end
+        holidays
     end
 
 end
