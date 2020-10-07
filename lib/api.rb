@@ -8,17 +8,17 @@ class API
         countries = JSON.parse(response)
         countries.each do |c|
         
-            a = Country.new(countryCode: c["key"], name: c["value"])
+            a = Country.new(country_code: c["key"], name: c["value"])
         end
-    
     end 
+    
     def self.get_holiday(country) 
-        url= "https://date.nager.at/Api/v2/NextPublicHolidays/#{country.countryCode}"
+        url= "https://date.nager.at/Api/v2/NextPublicHolidays/#{country.country_code}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         holidays = JSON.parse(response)
         holidays.each_with_index do |h, i|
-            b = Holiday.new(date: h["date"], localName: h["localName"], name: h["name"], countryCode: h["countryCode"], fixed: h["fixed"], global: h["global"], counties: h["counties"], launchYear: h["launchYear"], type: h["types"])
+            b = Holiday.new(date: h["date"], local_name: h["localName"], name: h["name"], country: country, type: h["types"])
         end
         holidays
     end

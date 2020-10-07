@@ -1,9 +1,13 @@
 class Holiday
-    attr_accessor :date, :localName, :name, :countryCode, :fixed, :global, :counties, :launchYear, :type
+    attr_accessor :date, :local_name, :name, :type, :country
     @@all = []
 
-    def initialize(countryCode)
-        @countryCode = countryCode 
+    def initialize(country:, date:, local_name:, name:, type:)
+        @country = country
+        @date = date
+        @local_name = local_name
+        @name = name
+        @type = type
         @@all << self 
     end 
 

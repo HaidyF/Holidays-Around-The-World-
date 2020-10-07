@@ -1,10 +1,10 @@
 class Country 
-    attr_accessor :name, :countryCode
+    attr_accessor :name, :country_code
     @@all = []
 
-    def initialize(name:, countryCode:)
+    def initialize(name:, country_code:)
         @name = name
-        @countryCode = countryCode
+        @country_code = country_code
         @@all << self
     end 
 
@@ -17,4 +17,5 @@ class Country
     n.name.downcase == user_input
     end 
     end
+
 end 
