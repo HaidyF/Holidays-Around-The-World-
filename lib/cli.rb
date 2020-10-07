@@ -24,8 +24,6 @@ class CLI
         puts ""
         puts "Please enter listed number to get more information about the holiday or enter 'exit' to exit"
         puts ""
-        input = gets.strip.downcase
-        input = input.to_i-1
         details(holidays, input)
         while input != 'exit' do 
             input = gets.strip.downcase
