@@ -8,15 +8,14 @@ class CLI
         puts "Search for upcoming holidays by entering a country name"
         puts ""
         API.available_countries
-        @country = gets.strip.downcase
-        puts ""
-        a = Country.find(@country)
+        country = gets.strip.downcase
+        a = Country.find(country)
         until a!=nil
             puts "Country not available"
             puts ""
             puts "Please re-enter another country name or enter 'exit' to exit"
-            @country = gets.strip.downcase
-            a = Country.find(@country)
+            country = gets.strip.downcase
+            a = Country.find(country)
             puts ""
         end
         holidays = API.get_holiday(a)
@@ -24,19 +23,18 @@ class CLI
         puts ""
         puts "Please enter listed number to get more information about the holiday or enter 'exit' to exit"
         puts ""
-        details(holidays, input)
+        input = gets.strip.downcase
         while input != 'exit' do 
-            input = gets.strip.downcase
-            if input!= 'exit'
-                input = input.to_i-1
-            else
-                break
-            end
-            if input <= (holidays.length - 1)
-        details(holidays, input)
+            index = input.to_i-1
+            if index <= (holidays.length - 1)
+        details(holidays, index)
             else
                 puts "invalid number"
             end
+            puts ""
+            puts "Select another holiday from the list above or enter 'exit' to exit"
+            puts ""
+            input = gets.strip.downcase
         end
         puts "Goodbye!!"
     end
@@ -51,11 +49,11 @@ class CLI
         end
     end
 
-    def details(holidays, input)
+    def details(holidays, index)
         puts ""
-        puts "Date = " + holidays[input]["date"]
-        puts "Local Name = " + holidays[input]["localName"]
-        puts "Name = " + holidays[input]["name"]
-        puts "Type = " + holidays[input]["type"]
+        puts "Date = " + holidays[index]["date"]
+        puts "Local Name = " + holidays[index]["localName"]
+        puts "Name = " + holidays[index]["name"]
+        puts "Type = " + holidays[index]["type"]
     end
 end
